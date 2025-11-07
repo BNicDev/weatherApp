@@ -11,13 +11,15 @@
     <nav class="navbar">
         <h1>TheWeatherApp</h1>
         <p id="location">Monte grande, buenos aires 26</p>
-        <input type="text" placeholder="Buscar">
-        <button>Buscar</button>
+        <form action="" id="formularioData">
+            <input type="text" placeholder="Buscar" id="input">
+            <input type="submit" id="search"></input>
+        </form>
     </nav>
     <main> 
         <section class="weather-data">
-            <h2>Hoy</h2>
-            <p >26°</p>
+            <h2 id="date">Hoy</h2>
+            <p id="temperature">26°</p>
             <p id="description">Mayormente soleado</p>
             <p id="humidity">Humedad: 60%</p>
             <p id="wind">Viento: 15 km/h</p>

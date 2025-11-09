@@ -30,8 +30,7 @@ informacionFormulario.addEventListener('submit', (e)=>{
     inputData.value = ''
 })
 
-const CIUDAD_POR_DEFECTO = 'ezeiza';
-DATA_API(CIUDAD_POR_DEFECTO, API_KEY);
+obtenerUbicacionActual();
 
 async function DATA_API(s,ak){
 
@@ -49,6 +48,7 @@ async function DATA_API(s,ak){
         DATA.length = 0;
         DATA.push(data);
         
+        console.log(DATA);
         mostrarClima(DATA[0])
 
     }catch(e){
@@ -57,6 +57,23 @@ async function DATA_API(s,ak){
         }else{
             console.log('hay un error', e)
         }
+    }
+}
+
+async function DATA_API_COORDENADAS(lat, lon, ak) {
+    const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${ak}&units=metric&lang=es`;
+
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        
+        DATA.length = 0;
+        DATA.push(data);
+        
+        mostrarClima(DATA[0]);
+        
+    } catch (e) {
+        console.error('Error al buscar el clima por coordenadas:', e);
     }
 }
 
@@ -72,8 +89,38 @@ function mostrarClima(datos){
     vientoParseado = Math.round(datos.wind.speed)
 
     ciudad.innerHTML = datos.name;
-    temperatura.innerText = tempParseada + '°C';
+    temperatura.innerHTML = tempParseada + '°C' + ` <img src="/assets/img/weather/clear.svg" />`;
     description.innerText = datos.weather[0].description;
-    humedad.innerText = datos.main.humidity + '%';
-    viento.innerText = vientoParseado + ' KM/H';
+    humedad.innerHTML = `Humedad <br/> ${datos.main.humidity}% <img src="/assets/img/weather/humidity_percentage_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />`;
+    viento.innerHTML = `Viento <br/> ${vientoParseado} km/h <img src="/assets/img/weather/air_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" />`;
 }
+
+function obtenerUbicacionActual() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                
+                console.log(`Ubicación obtenida: Lat=${lat}, Lon=${lon}`);
+                
+                
+                DATA_API_COORDENADAS(lat, lon, API_KEY);
+            },
+            
+            
+            (error) => {
+                console.error('Error al obtener la ubicación:', error.code, error.message);
+                alert('Permiso de ubicación denegado. Se mostrará el clima de la ciudad por defecto.');
+                DATA_API('ezeiza', API_KEY); 
+            },
+            
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        );
+    } else {
+        alert('Tu navegador no soporta la geolocalización. Se mostrará la ciudad por defecto.');
+        DATA_API('ezeiza', API_KEY);
+    }
+}
+
+function mostrarImagen(){}

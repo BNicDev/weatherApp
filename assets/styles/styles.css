@@ -1,14 +1,9 @@
-/*
-====================================
-1. ESTILOS BASE Y FUENTES
-====================================
-*/
 :root {
-    --color-primary: #4a90e2; /* Azul principal */
-    --color-secondary: #50e3c2; /* Aguamarina para acentos */
-    --color-text-light: #f5f5f5; /* Blanco suave */
-    --color-bg-dark: #3a3f44; /* Fondo oscuro */
-    --color-card-bg: rgba(255, 255, 255, 0.1); /* Fondo de tarjeta semitransparente */
+    --color-primary: #4a90e2; 
+    --color-secondary: #50e3c2; 
+    --color-text-light: #f5f5f5; 
+    --color-bg-dark: #3a3f44; 
+    --color-card-bg: rgba(255, 255, 255, 0.1); 
 }
 
 * {
@@ -19,18 +14,13 @@
 }
 
 body {
-    background: linear-gradient(135deg, var(--color-primary), #1e3c72); /* Degradado de fondo */
+    background-image: url('/assets//img/bg.jpg');
     color: var(--color-text-light);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/*
-====================================
-2. BARRA DE NAVEGACIÓN (NAVBAR)
-====================================
-*/
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -45,7 +35,6 @@ body {
     font-weight: 300;
 }
 
-/* Estilo para la fecha y ubicación */
 #location {
     text-align: right;
     font-size: 0.9rem;
@@ -58,7 +47,6 @@ body {
 }
 
 
-/* Formulario de búsqueda */
 #formularioData {
     display: flex;
     gap: 10px;
@@ -97,11 +85,6 @@ body {
     background-color: #38c4a4;
 }
 
-/*
-====================================
-3. CONTENIDO PRINCIPAL (MAIN)
-====================================
-*/
 main {
     flex-grow: 1;
     display: flex;
@@ -112,7 +95,7 @@ main {
 
 .weather-data {
     background-color: var(--color-card-bg);
-    backdrop-filter: blur(10px); /* Efecto cristal/blur */
+    backdrop-filter: blur(10px); 
     border-radius: 20px;
     padding: 40px;
     width: 90%;
@@ -121,9 +104,8 @@ main {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Estilos de la data del clima */
 #date {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 300;
     margin-bottom: 20px;
 }
@@ -132,10 +114,12 @@ main {
     font-size: 5rem;
     font-weight: 700;
     margin: 10px 0;
-    /* Efecto degradado en el texto */
-    background: linear-gradient(90deg, #f0f0f0, var(--color-secondary));
+    background: linear-gradient(70deg, var(--color-secondary), white);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #description {
@@ -151,38 +135,31 @@ main {
     padding-top: 8px;
 }
 
-/*
-====================================
-4. RESPONSIVENESS (MEDIA QUERIES)
-====================================
-*/
-
-/* Estilos para pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column; /* Apila los elementos verticalmente */
+        flex-direction: column; 
         padding: 15px 5%;
         gap: 15px;
     }
 
     .navbar h1 {
         font-size: 1.5rem;
-        order: 1; /* Mueve el título primero */
+        order: 1; 
     }
 
     #location {
-        order: 3; /* Mueve la ubicación al final */
+        order: 3; 
         text-align: center;
         width: 100%;
     }
 
     #formularioData {
-        order: 2; /* Mueve el formulario al medio */
+        order: 2; 
         width: 100%;
     }
 
     #input {
-        flex-grow: 1; /* El input ocupa todo el espacio restante */
+        flex-grow: 1; 
     }
 
     #search {
@@ -195,7 +172,7 @@ main {
     }
 
     #temperature {
-        font-size: 4rem; /* Reduce el tamaño de la temperatura */
+        font-size: 4rem; 
     }
 
     #description {

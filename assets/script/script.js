@@ -2,7 +2,8 @@ let API_KEY = '1ea4f89accf91abda486b4e66914993b';
 let searchData = ''
 let buscar = document.getElementById('search');
 let informacionFormulario = document.getElementById('formularioData')
-let DATA = []
+let DATA = [];
+let autocomplete;
 
 const dayElemento = document.getElementById('location');
 const opcionesFecha = { 
@@ -11,7 +12,6 @@ const opcionesFecha = {
     day: 'numeric' 
 };
 const date = new Date().toLocaleDateString('es-ES', opcionesFecha);
-console.log(date)
 
 dayElemento.innerHTML = `
     <p>${date}</p>
@@ -48,7 +48,6 @@ async function DATA_API(s,ak){
         DATA.length = 0;
         DATA.push(data);
         
-        console.log(DATA);
         mostrarClima(DATA[0])
 
     }catch(e){
@@ -77,8 +76,27 @@ async function DATA_API_COORDENADAS(lat, lon, ak) {
     }
 }
 
+function initMap(){
+    const inputElemento = document.getElementById('input');
+    const options = {
+        types : ['(cities)'],
+    };
+    autocomplete = new google.maps.places.Autocomplete(inputElemento, options);
+
+    autocomplete.addListener('place_changed', onPlaceChanged);
+}
+
+function onPlaceChanged(){
+    const place = autocomplete.getPlace();
+    if(place.geometry){
+        const cityName = place.name;
+        DATA_API(cityName, API_KEY)
+    }else{
+        alert('la ciudad no fue encontrada')
+    }
+}
+
 function mostrarClima(datos){
-    console.log(datos)
     const ciudad = document.getElementById('ciudad')
     const temperatura = document.getElementById('temperature');
     const description = document.getElementById('description');
@@ -101,10 +119,6 @@ function obtenerUbicacionActual() {
             (position) => {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
-                
-                console.log(`Ubicación obtenida: Lat=${lat}, Lon=${lon}`);
-                
-                
                 DATA_API_COORDENADAS(lat, lon, API_KEY);
             },
             

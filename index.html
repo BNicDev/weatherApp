@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/assets/script/script.js" defer></script>
+    <script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC02g-zipaRdvK7obpKpYiCDsZJ93YClxI&libraries=places&callback=initMap&loading=async" defer
+></script>
     <link rel="stylesheet" href="/assets/styles/styles.css">
     <title>the weather app</title>
 </head>
@@ -13,7 +16,8 @@
         <div id="location"></div>
         <form action="" id="formularioData">
             <input type="text" placeholder="Buscar" id="input">
-            <input type="submit" id="search" value="Buscar"></input>
+            
+            <div id="sugerencias-container"></div><input type="submit" id="search" value="Buscar"></input>
         </form>
     </nav>
     <main> 
